@@ -1,0 +1,134 @@
+<template name="footer">
+  <hr/>
+  <div class="footer">
+    Made by Matthew Kaufer
+  </div>
+</template>
+
+<template name="header">
+
+<ul class="nav nav-pills">
+  <li class="{{getClass 'homepage'}}"><a href="{{pathFor 'homepage'}}">Home</a></li>
+  <li class="{{getClass 'content'}}"><a href="{{pathFor 'content'}}">Content</a></li>
+  <li class="{{getClass 'items'}}"><a href="{{pathFor 'items'}}">Items</a></li>
+  {{#if isLoggedIn}}
+    <li class="{{getClass 'new'}}"><a href="{{pathFor 'new'}}">Items</a></li>
+    <li><a href="/" class="log-out">Log Out</a></li>
+  {{else}}
+    <li class="{{getClass 'signup'}}"><a href="{{pathFor 'signup'}}">Sign Up</a></li>
+    <li class="{{getClass 'login'}}"><a href="{{pathFor 'login'}}">Log In</a></li>
+  {{/if}}
+
+</ul>
+
+  
+
+  <hr/>
+  <div class="messages">
+    {{#each messages}}
+      <p class="message message-{{type}}">{{message}}</p>
+    {{/each}}
+  </div>
+</template>
+
+<template name="layout">
+  {{> header}}
+  {{yield}}
+  {{> footer}}
+</template>
+
+<template name="loading">
+  Loading…
+</template>
+
+<template name="notFound">
+  <h2>Not Found!</h2>
+  <p>We're sorry, but whatever you were looking for isn't here…</p>
+</template>
+
+<template name="forgot">
+  <form>
+    <h2>Forgot Password?</h2>
+    <div class="control-group">
+      <label>Your Email</label>
+      <div class="controls"><input id="email" name="email" type="text" value="" /></div>
+    </div>
+    <div class="form-actions">
+      <input type="submit" class="button" value="Reset Password" />
+    </div>
+  </form>
+</template>
+
+<template name="signup">
+  <form>
+    <div class="control-group">
+      <label>Username</label>
+      <div class="controls"><input id="username" name="username" type="text" value="" /></div>
+    </div>
+    <div class="control-group">
+      <label>Your Name</label>
+      <div class="controls"><input id="n" name="n" type="text" value="" /></div>
+    </div>
+    <div class="control-group">
+      <label>Email</label>
+      <div class="controls"><input id="email" name="email" type="text" value="" /></div>
+    </div>
+    <div class="control-group">
+      <label>Password</label>
+      <div class="controls"><input id="password" name="password" type="password" value="" /></div>
+    </div>
+    <div class="form-actions">
+      <input type="submit" class="button" value="Sign Up" />
+    </div>  
+  </form>
+</template>
+
+<template name="login">
+  <form>
+    <div class="control-group">
+      <label>Username</label>
+      <div class="controls"><input id="username" type="text" value="" /></div>
+    </div>
+    <div class="control-group">
+      <label>Password</label>
+      <div class="controls"><input id="password" type="password" value="" /></div>
+    </div>
+    <div class="form-actions">
+      <a href="/forgot">Forgot password?</a>
+      <input type="submit" class="button" value="Log In" />
+    </div>
+  </form>
+</template>
+
+<template name="homepage">
+  <h2>Welcome to the homepage!</h2>
+</template>
+
+<template name="content">
+  <h2>This is a content page.</h2>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+</template>
+
+<template name="items">
+  <h3>Items: </h3>
+  <ul>
+    {{#each items}}
+      <li><a href="{{pathFor "item"}}">{{title}}</a></li>
+    {{/each}}
+  </ul>
+</template>
+
+<template name="item">
+  <a href="{{pathFor 'items'}}">← Back</a>
+  {{#with item}}
+    <div class="item">
+      <h3>{{title}}</h3>
+      <p>{{body}}</p>
+      <h5><a href="#" class="delete">Delete</a></h5>
+    </div>
+  {{/with}}
+</template>
+
+<template name="new">
+
+</template>
