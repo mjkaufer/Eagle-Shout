@@ -1,6 +1,10 @@
 {
   "meteor": {},
   "packages": {
-    "iron-router": {}
+    "iron-router": {},
+    "fast-render": {},
+    "moment": {},
+    "bootstrap3-datetimepicker": {},
+    "bootstrap-3": {}
   }
 }

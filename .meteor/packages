@@ -7,6 +7,9 @@ standard-app-packages
 preserve-inputs
 iron-router
 accounts-ui
-bootstrap
 accounts-password
 accounts-base
+fast-render
+moment
+bootstrap3-datetimepicker
+bootstrap-3

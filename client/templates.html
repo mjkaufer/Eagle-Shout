@@ -1,0 +1,360 @@
+<template name="footer">
+  <hr/>
+  <div class="footer">
+    Made by Matthew Kaufer
+  </div>
+</template>
+
+<template name="header">
+
+
+<nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          
+          <a class="navbar-brand" href="#">Eagle Shout</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+          <ul class="nav navbar-nav">
+  <li class="{{getClass 'homepage'}}"><a href="{{pathFor 'homepage'}}">Home</a></li>
+  <!--<li class="{{getClass 'content'}}"><a href="{{pathFor 'content'}}">Content</a></li>-->
+  <li class="{{getClass 'projects'}}"><a href="{{pathFor 'projects'}}">Projects</a></li>
+  
+  {{#if isLoggedIn}}
+    <li class="{{getClass 'yourProject'}}"><a href="{{pathFor 'yourProject'}}">Your Project</a></li>
+    <li><a href="/" class="log-out">Log Out</a></li>
+  {{else}}
+    {{#if loggingIn}}
+        <li class="{{getClass 'yourProject'}}"><a href="{{pathFor 'yourProject'}}">Your Project</a></li>
+        <li><a href="/" class="log-out">Log Out</a></li>    
+    {{else}}
+        <li class="{{getClass 'signup'}}"><a href="{{pathFor 'signup'}}">Sign Up</a></li>
+        <li class="{{getClass 'login'}}"><a href="{{pathFor 'login'}}">Log In</a></li>
+    {{/if}}
+  {{/if}}
+
+          </ul>
+          
+      </div><!-- /.container-fluid -->
+    </nav>
+
+
+  
+  <div style="margin-left:1em;">
+      <hr/>
+      {{#if areMessages}}
+      <div class="alert alert-info" id="alert" style="position:absolute;left:0;right:0;margin-left:auto;margin-right:auto;width:25%;text-align:center;">
+        {{#each messages}}
+          {{message}}
+        {{/each}}
+      </div>
+      {{/if}}
+          
+  </div>
+</template>
+
+<template name="layout">
+  {{> header}}
+  <div style="margin-left:1em;">
+  {{yield}}
+  {{> footer}}
+  </div>
+</template>
+
+<template name="loading">
+  Loading…
+</template>
+
+<template name="notFound">
+  <h2>Not Found!</h2>
+  <p>We're sorry, but whatever you were looking for isn't here…</p>
+</template>
+
+<template name="forgot">
+  <form>
+    <h2>Forgot Password?</h2>
+    <div class="control-group">
+      <label>Your Email</label>
+      <div class="controls"><input id="email" name="email" type="text" value="" /></div>
+    </div>
+    <div class="form-actions">
+      <input type="submit" class="button" value="Reset Password" />
+    </div>
+  </form>
+</template>
+
+<template name="signup">
+  <form>
+  
+  <div style="float:left; position:relative; margin-right:40px; z-index:100;">
+  
+    <div class="control-group">
+      <label>Username</label>
+      <div class="controls"><input id="username" name="username" type="text" value="" /></div>
+    </div>
+    
+    <div class="control-group">
+      <label>Email</label>
+      <div class="controls"><input id="email" name="email" type="text" value="" /></div>
+    </div>
+    
+    <div class="control-group">
+      <label>Password</label>
+      <div class="controls"><input id="password" name="password" type="password" value="" /></div>
+    </div>  
+  
+    <div class="control-group">
+      <label>Troop #</label>
+      <div class="controls"><input id="troop" name="troop" type="number" value="" /></div>
+    </div>  
+    
+  </div>
+
+  <div style="position:relative;">
+    
+    <div class="control-group">
+      <label>First Name</label>
+      <div class="controls"><input id="first" name="first" type="text" value="" /></div>
+    </div>  
+    
+    <div class="control-group">
+      <label>Last Name</label>
+      <div class="controls"><input id="last" name="last" type="text" value="" /></div>
+    </div>     
+    
+    <div class="control-group">
+      <label>City</label>
+      <div class="controls"><input id="city" name="city" type="text" value="" /></div>
+    </div>          
+    
+    <div class="control-group">
+      <label>State</label>
+      <div class="controls">{{> states}}</div>
+    </div>      
+  </div>    
+    <br/>
+    <div class="form-actions">
+      <input type="submit" class="button" value="Sign Up" />
+    </div>  
+  </form>
+</template>
+
+<template name="login">
+  <form>
+    <div class="control-group">
+      <label>Username</label>
+      <div class="controls"><input id="username" type="text" value="" /></div>
+    </div>
+    <div class="control-group">
+      <label>Password</label>
+      <div class="controls"><input id="password" type="password" value="" /></div>
+    </div>
+    <div class="form-actions">
+      <a href="/forgot">Forgot password?</a>
+      <input type="submit" class="button" value="Log In" />
+    </div>
+  </form>
+</template>
+
+<template name="homepage">
+  <h3>Welcome to EagleShout!</h3>
+  
+  {{#if loggingIn}}
+  {{> loading}}
+  {{/if}}
+  
+  {{#if currentUser}}
+    <p>Hey {{currentUser.first}}!</p>
+  {{/if}}
+  
+</template>
+
+<template name="content">
+  <h2>This is a content page.</h2>
+  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+</template>
+
+<!--<template name="items">-->
+<!--  <h3>Items: </h3>-->
+<!--  <ul>-->
+<!--    {{#each items}}-->
+<!--      <li><a href="{{pathFor 'item'}}">{{title}}</a></li>-->
+<!--    {{/each}}-->
+<!--  </ul>-->
+<!--</template>-->
+
+<!--<template name="item">-->
+<!--  <a href="{{pathFor 'items'}}">← Back</a>-->
+<!--  {{#with item}}-->
+<!--    <div class="item">-->
+<!--      <h3>{{title}}</h3>-->
+<!--      <p>{{body}}</p>-->
+<!--      <h5><a href="#" class="delete">Delete</a></h5>-->
+<!--    </div>-->
+<!--  {{/with}}-->
+<!--</template>-->
+
+<template name="projects">
+  <h3>Projects: </h3>
+  <ul>
+    {{#each projects}}
+      <li><a href="{{pathFor 'project'}}">{{name}}</a></li>
+    {{else}}
+      <h4>No projects here right now. :(</h4>
+    {{/each}}
+  </ul>
+</template>
+
+<template name="project">
+  <a href="{{pathFor 'projects'}}">← All Projects</a>
+  {{#with project}}
+    <div class="project">
+      <h3>{{name}}</h3>
+      <h4>By {{scout}} of Troop {{troop}}.</h4>
+      <p><b>Where: </b>{{address}}, {{city}} {{state}}, {{zip}}</p>
+      <p><b>When: </b>{{date}}</p>
+      <p><b>What: </b>{{description}}</p>
+      <h5><a href="#" class="delete">Delete</a></h5>
+    </div>
+  {{/with}}
+</template>
+
+<template name="yourProject">
+
+    {{#if hasProject}}
+        {{toProject}}
+    {{else}}
+        <h3>Your Eagle Scout Project</h3>
+        
+    <form>
+        <div style="float:left; position:relative; margin-right:40px; z-index:100;">
+          
+            <div class="control-group">
+              <label>Project Name</label>
+              <div class="controls"><input id="pname" name="pname" type="text" value="" /></div>
+            </div>
+
+            <div class="control-group">
+              <label>Address</label>
+              <div class="controls"><input id="address" name="address" type="text" value="" /></div>
+            </div>            
+            
+            <div class="control-group">
+              <label>State</label>
+              <div class="controls">{{> states}}</div>
+            </div>                 
+            
+          </div>
+        
+          <div style="position:relative;">
+            
+            <div class="control-group">
+              <label>Date</label>
+              <div class="controls"><input id="time" name="time" type="text" value="" /></div>
+            </div>  
+            
+            <div class="control-group">
+              <label>City</label>
+              <div class="controls"><input id="city" name="city" type="text" value="" /></div>
+            </div>     
+            
+            <div class="control-group">
+              <label>Zip</label>
+              <div class="controls"><input id="zip" name="zip" type="number" value="" /></div>
+            </div>                 
+               
+          </div>    
+          
+            <div class="control-group">
+              <label>Description</label>
+              <div class="controls"><textarea id="desc" name="desc" type="text" value="" cols="53"></textarea></div>
+            </div>   
+            
+        <br/>
+        <div class="form-actions">
+          <input type="submit" class="button" value="Create" />
+        </div>  
+        
+
+        
+      </form>        
+        
+        
+    {{/if}}
+
+
+</template>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<template name="states">
+    <select id="state">
+    	<option value="AL">AL</option>
+    	<option value="AK">AK</option>
+    	<option value="AZ">AZ</option>
+    	<option value="AR">AR</option>
+    	<option value="CA">CA</option>
+    	<option value="CO">CO</option>
+    	<option value="CT">CT</option>
+    	<option value="DE">DE</option>
+    	<option value="DC">DC</option>
+    	<option value="FL">FL</option>
+    	<option value="GA">GA</option>
+    	<option value="HI">HI</option>
+    	<option value="ID">ID</option>
+    	<option value="IL">IL</option>
+    	<option value="IN">IN</option>
+    	<option value="IA">IA</option>
+    	<option value="KS">KS</option>
+    	<option value="KY">KY</option>
+    	<option value="LA">LA</option>
+    	<option value="ME">ME</option>
+    	<option value="MD">MD</option>
+    	<option value="MA">MA</option>
+    	<option value="MI">MI</option>
+    	<option value="MN">MN</option>
+    	<option value="MS">MS</option>
+    	<option value="MO">MO</option>
+    	<option value="MT">MT</option>
+    	<option value="NE">NE</option>
+    	<option value="NV">NV</option>
+    	<option value="NH">NH</option>
+    	<option value="NJ">NJ</option>
+    	<option value="NM">NM</option>
+    	<option value="NY">NY</option>
+    	<option value="NC">NC</option>
+    	<option value="ND">ND</option>
+    	<option value="OH">OH</option>
+    	<option value="OK">OK</option>
+    	<option value="OR">OR</option>
+    	<option value="PA">PA</option>
+    	<option value="RI">RI</option>
+    	<option value="SC">SC</option>
+    	<option value="SD">SD</option>
+    	<option value="TN">TN</option>
+    	<option value="TX">TX</option>
+    	<option value="UT">UT</option>
+    	<option value="VT">VT</option>
+    	<option value="VA">VA</option>
+    	<option value="WA">WA</option>
+    	<option value="WV">WV</option>
+    	<option value="WI">WI</option>
+    	<option value="WY">WY</option>
+    </select>			
+    
+</template>

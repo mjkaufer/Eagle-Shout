@@ -61,6 +61,29 @@ Router.map(function() {
       }
     }
   });
+  
+  this.route('projects', {
+    waitOn: function () {
+      return Meteor.subscribe('allItems');
+    },
+    data: function () {
+      return {
+        projects: Items.find()
+      }
+    }
+  });
+
+  this.route('project', {
+    path: '/projects/:username',
+    waitOn: function () {
+      return Meteor.subscribe('singleItem', this.params.username);
+    },
+    data: function () {
+      return {
+        project: Items.findOne({username: this.params.username})
+      }
+    }
+  });  
 
 
   // Pages
@@ -70,6 +93,8 @@ Router.map(function() {
   });
 
   this.route('new');
+  
+  this.route('yourProject');
 
   this.route('content');
 
